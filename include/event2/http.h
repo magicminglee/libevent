@@ -1465,7 +1465,7 @@ char *evhttp_uri_join(struct evhttp_uri *uri, char *buf, size_t limit);
    @param arg an context argument for the callback
  */
 EVENT2_EXPORT_SYMBOL
-void evhttp_set_conncb(struct evhttp *http, void(*cb)(struct evhttp_connection *));
+void evhttp_set_conncb(struct evhttp *http, void(*cb)(struct evhttp_connection *), void *arg);
 
 #ifdef __cplusplus
 }
