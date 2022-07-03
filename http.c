@@ -5131,7 +5131,7 @@ evhttp_uri_set_fragment(struct evhttp_uri *uri, const char *fragment)
 }
 
 void
-evhttp_set_evconncb(struct evhttp *http, void(*cb)(struct evhttp_connection *), void* arg)
+evhttp_set_evconncb(struct evhttp *http, void(*cb)(struct evhttp_connection *, void *), void* arg)
 {
 	http->conncb = cb;
 	http->conncbarg = arg;
