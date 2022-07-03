@@ -1561,7 +1561,7 @@ evhttp_error_cb(struct bufferevent *bufev, short what, void *arg)
 		evhttp_connection_fail_(evcon, EVREQ_HTTP_EOF);
 	} else if (what == BEV_EVENT_CONNECTED) {
 		if (evcon->http_server->conncb != NULL) {
-			(*evcon->http_server->conncb)(evcon);
+			(*evcon->http_server->conncb)(evcon, evcon->http_server->conncbarg);
 		}
 	} else {
 		evhttp_connection_fail_(evcon, EVREQ_HTTP_BUFFER_ERROR);
@@ -5131,7 +5131,8 @@ evhttp_uri_set_fragment(struct evhttp_uri *uri, const char *fragment)
 }
 
 void
-evhttp_set_evconncb(struct evhttp *http, void(*cb)(struct evhttp_connection *))
+evhttp_set_evconncb(struct evhttp *http, void(*cb)(struct evhttp_connection *), void* arg)
 {
 	http->conncb = cb;
+	http->conncbarg = arg;
 }
