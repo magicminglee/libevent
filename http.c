@@ -5136,3 +5136,10 @@ evhttp_set_evconncb(struct evhttp *http, void(*cb)(struct evhttp_connection *, v
 	http->conncb = cb;
 	http->conncbarg = arg;
 }
+
+void
+evhttp_set_evconn_cb(struct evhttp_connection *evcon, void(*cb)(struct evhttp_connection *, void *), void* arg)
+{
+	evcon->conncb = cb;
+	evcon->conncb_arg = arg;
+}

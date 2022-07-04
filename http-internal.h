@@ -97,6 +97,9 @@ struct evhttp_connection {
 	void (*closecb)(struct evhttp_connection *, void *);
 	void *closecb_arg;
 
+	void (*conncb)(struct evhttp_connection *, void *);
+	void *conncb_arg;
+
 	struct event_callback read_more_deferred_cb;
 
 	struct event_base *base;
