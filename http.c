@@ -1620,6 +1620,9 @@ evhttp_connection_cb(struct bufferevent *bufev, short what, void *arg)
 		goto cleanup;
 	}
 
+	if(evcon->conncb != NULL) {
+		(*evcon->conncb)(evcon, evcon->conncb_arg);
+	}
 	/* We are connected to the server now */
 	event_debug(("%s: connected to \"%s:%d\" on "EV_SOCK_FMT"\n",
 			__func__, evcon->address, evcon->port,
