@@ -1562,6 +1562,8 @@ evhttp_error_cb(struct bufferevent *bufev, short what, void *arg)
 	} else if (what == BEV_EVENT_CONNECTED) {
 		if (evcon->http_server != NULL && evcon->http_server->conncb != NULL) {
 			(*evcon->http_server->conncb)(evcon, evcon->http_server->conncbarg);
+		} else if(evcon->conncb) {
+			(*evcon->conncb)(evcon->conncb_arg);
 		}
 	} else {
 		evhttp_connection_fail_(evcon, EVREQ_HTTP_BUFFER_ERROR);
