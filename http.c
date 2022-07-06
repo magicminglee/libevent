@@ -1644,10 +1644,12 @@ evhttp_connection_cb(struct bufferevent *bufev, short what, void *arg)
 		bufferevent_set_timeouts(evcon->bufev, &evcon->timeout, &evcon->timeout);
 	}
 
-	/* try to start requests that have queued up on this connection */
-	evhttp_request_dispatch(evcon);
 	if(evcon->conncb != NULL) {
-		(*evcon->conncb)(evcon, evcon->conncb_arg);
+		error = (*evcon->conncb)(evcon, evcon->conncb_arg);
+	}
+	if(error) {
+		/* try to start requests that have queued up on this connection */
+		evhttp_request_dispatch(evcon);
 	}
 	return;
 
@@ -5136,14 +5138,14 @@ evhttp_uri_set_fragment(struct evhttp_uri *uri, const char *fragment)
 }
 
 void
-evhttp_set_evconncb(struct evhttp *http, void(*cb)(struct evhttp_connection *, void *), void* arg)
+evhttp_set_evconncb(struct evhttp *http, int(*cb)(struct evhttp_connection *, void *), void* arg)
 {
 	http->conncb = cb;
 	http->conncbarg = arg;
 }
 
 void
-evhttp_set_evconn_cb(struct evhttp_connection *evcon, void(*cb)(struct evhttp_connection *, void *), void* arg)
+evhttp_set_evconn_cb(struct evhttp_connection *evcon, int(*cb)(struct evhttp_connection *, void *), void* arg)
 {
 	evcon->conncb = cb;
 	evcon->conncb_arg = arg;

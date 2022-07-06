@@ -1196,7 +1196,7 @@ char *evhttp_uri_join(struct evhttp_uri *uri, char *buf, size_t limit);
    @param arg an context argument for the callback
  */
 EVENT2_EXPORT_SYMBOL
-void evhttp_set_evconncb(struct evhttp *http, void(*cb)(struct evhttp_connection *, void*), void *arg);
+void evhttp_set_evconncb(struct evhttp *http, int(*cb)(struct evhttp_connection *, void*), void *arg);
 
 /**
    Set a callback used to notify connected connection
@@ -1209,7 +1209,7 @@ void evhttp_set_evconncb(struct evhttp *http, void(*cb)(struct evhttp_connection
    @param arg an context argument for the callback
  */
 EVENT2_EXPORT_SYMBOL
-void evhttp_set_evconn_cb(struct evhttp_connection *evcon, void(*cb)(struct evhttp_connection *, void*), void *arg);
+void evhttp_set_evconn_cb(struct evhttp_connection *evcon, int(*cb)(struct evhttp_connection *, void*), void *arg);
 
 #ifdef __cplusplus
 }

@@ -97,7 +97,7 @@ struct evhttp_connection {
 	void (*closecb)(struct evhttp_connection *, void *);
 	void *closecb_arg;
 
-	void (*conncb)(struct evhttp_connection *, void *);
+	int (*conncb)(struct evhttp_connection *, void *);
 	void *conncb_arg;
 
 	struct event_callback read_more_deferred_cb;
@@ -170,7 +170,7 @@ struct evhttp {
 	void *gencbarg;
 	struct bufferevent* (*bevcb)(struct event_base *, void *);
 	void *bevcbarg;
-	void (*conncb)(struct evhttp_connection *, void *);
+	int (*conncb)(struct evhttp_connection *, void *);
 	void *conncbarg;
 
 	struct event_base *base;
