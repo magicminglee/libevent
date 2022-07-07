@@ -1644,6 +1644,7 @@ evhttp_connection_cb(struct bufferevent *bufev, short what, void *arg)
 		bufferevent_set_timeouts(evcon->bufev, &evcon->timeout, &evcon->timeout);
 	}
 
+	error = 1;
 	if(evcon->conncb != NULL) {
 		error = (*evcon->conncb)(evcon, evcon->conncb_arg);
 	}
